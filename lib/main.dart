@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_klmpk6/pages/Home.dart';
 import 'package:flutter_klmpk6/pages/auth/login.dart';
 import 'package:flutter_klmpk6/pages/auth/register.dart';
+import 'package:flutter_klmpk6/pages/dokter/detailDokter.dart';
+import 'package:flutter_klmpk6/pages/layout.dart';
 import 'package:flutter_klmpk6/pages/splash/splash.dart';
 import 'package:flutter_klmpk6/pages/splash/splashLogin.dart';
 
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: RegisterScreen(),
+      home: DetailProfil(),
     );
   }
 }
