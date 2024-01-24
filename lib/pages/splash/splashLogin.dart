@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_klmpk6/pages/auth/login.dart';
+import 'package:flutter_klmpk6/pages/auth/register.dart';
 
 class SplashLogin extends StatelessWidget {
   const SplashLogin({Key? key});
@@ -31,7 +33,13 @@ class SplashLogin extends StatelessWidget {
                       fixedSize: Size(MediaQuery.of(context).size.width, 48),
                       elevation: 0,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreen(),
+                        ),
+                      );
+                    },
                     child: Text(
                       'BUAT AKUN BARU',
                       style: TextStyle(
@@ -52,7 +60,13 @@ class SplashLogin extends StatelessWidget {
                         width: 2,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ),
+                      );
+                    },
                     child: Text(
                       'MASUK',
                       style: TextStyle(

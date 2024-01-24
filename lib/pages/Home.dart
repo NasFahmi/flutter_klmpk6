@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_klmpk6/model/Home.dart';
+import 'package:flutter_klmpk6/services/Services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,6 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late Future<Home?> futureHome;
+  @override
+  void initState() {
+    super.initState();
+    futureHome = Service.fetchDataHome();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

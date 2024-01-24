@@ -8,7 +8,7 @@ class Service {
   static Future<bool> login(String email, String password) async {
     try {
       final response = await dio.post(
-        '{$Api.BASEURL+$Api.LOGIN}', // Replace with your login endpoint
+        Api.BASEURL + Api.LOGIN, // Replace with your login endpoint
         data: {
           'email': email,
           'password': password,
@@ -27,7 +27,7 @@ class Service {
       String nama, String email, String alamat, String password) async {
     try {
       final response = await dio.post(
-        '{$Api.BASEURL+$Api.REGISTER}', // Replace with your registration endpoint
+        Api.BASEURL + Api.REGISTER, // Replace with your registration endpoint
         data: {
           'nama': nama,
           'email': email,
@@ -47,7 +47,7 @@ class Service {
   static Future<bool> logout() async {
     try {
       final response = await dio.post(
-        '{$Api.BASEURL+$Api.LOGOUT}', // Replace with your logout endpoint
+        Api.BASEURL + Api.LOGOUT, // Replace with your logout endpoint
       );
 
       // Assuming your API returns a success status
@@ -61,7 +61,7 @@ class Service {
   static Future<Home?> fetchDataHome() async {
     try {
       final response = await dio.get(
-        '{$Api.BASEURL+$Api.HOME}', // Replace with your API endpoint
+        Api.BASEURL + Api.HOME, // Replace with your API endpoint
       );
 
       // Assuming your API returns a JSON object

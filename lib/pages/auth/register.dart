@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_klmpk6/pages/auth/login.dart';
+import 'package:flutter_klmpk6/services/Services.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -19,12 +21,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
           icon: Icon(Icons.arrow_back_ios),
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ),
+              );
+            },
             child: Text(
               'Masuk',
               style: TextStyle(
@@ -89,7 +99,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   fixedSize: Size(MediaQuery.of(context).size.width, 48),
                   elevation: 0,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  // Validate the form before attempting registration
+                  if (Form.of(context)?.validate() ?? false) {
+                    // Call the registration API
+                    bool registrationSuccess = await Service.register(
+                      namacontroller.text,
+                      emailcontroller.text,
+                      alamatcontroller.text,
+                      passwordcontroller.text,
+                    );
+
+                    if (registrationSuccess) {
+                      // Navigate to the login screen or any other screen upon successful registration
+                      // For example, you can use Navigator.pushReplacement to replace the current screen
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginScreen()), // Replace LoginScreen with your login screen
+                      );
+                    } else {
+                      // Handle registration failure, show an error message or take appropriate action
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content:
+                              Text('Registration failed. Please try again.'),
+                        ),
+                      );
+                    }
+                  }
+                },
                 child: Text(
                   'BUAT AKUN BARU',
                   style: TextStyle(

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_klmpk6/pages/Home.dart';
+import 'package:flutter_klmpk6/pages/auth/register.dart';
+import 'package:flutter_klmpk6/pages/layout.dart';
+import 'package:flutter_klmpk6/services/Services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key});
@@ -8,6 +12,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(); // Declare GlobalKey
+
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
 
@@ -18,12 +25,20 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
           icon: Icon(Icons.arrow_back_ios),
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => RegisterScreen(),
+                ),
+              );
+            },
             child: Text(
               'Buat Akun Baru',
               style: TextStyle(
@@ -57,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 40,
               ),
               Form(
+                key: _formKey,
                 child: Column(
                   children: [
                     // Email
@@ -78,9 +94,37 @@ class _LoginScreenState extends State<LoginScreen> {
                   fixedSize: Size(MediaQuery.of(context).size.width, 48),
                   elevation: 0,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  // Validate the form before attempting login
+                  if (_formKey.currentState?.validate() ?? false) {
+                    // Call the login API
+                    bool loginSuccess = await Service.login(
+                      emailcontroller.text,
+                      passwordcontroller.text,
+                    );
+
+                    if (loginSuccess) {
+                      // Navigate to the home screen or any other screen upon successful login
+                      // For example, you can use Navigator.pushReplacement to replace the current screen
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MainLayout()), // Replace HomeScreen with your desired screen
+                      );
+                    } else {
+                      // Handle login failure, show an error message or take appropriate action
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Login failed. Please check your credentials.'),
+                        ),
+                      );
+                    }
+                  }
+                },
                 child: Text(
-                  'BUAT AKUN BARU',
+                  'Masuk',
                   style: TextStyle(
                     color: Colors.white,
                   ),
