@@ -14,6 +14,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController alamatcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
+   final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(); // Declare GlobalKey
 
   bool isObscure = true; // Added boolean variable
   @override
@@ -101,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 onPressed: () async {
                   // Validate the form before attempting registration
-                  if (Form.of(context)?.validate() ?? false) {
+                  if (_formKey.currentState?.validate() ?? false) {
                     // Call the registration API
                     bool registrationSuccess = await Service.register(
                       namacontroller.text,
